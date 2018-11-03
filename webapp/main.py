@@ -1,17 +1,18 @@
 from flask import Flask, jsonify, request, render_template, redirect, url_for
+import json
 
 app = Flask(__name__)
 
+data = {}
+
 @app.route('/', methods=["GET","POST"])
 def index():
-    if request.method == "POST":
-        data = request.get_json()
-        return redirect(url_for('map', data=data))
-    else:
-        return "Index page"
+    global data
 
-@app.route('/map', methods=["GET"])
-def map(data):
+    file = open('spantree.json')
+    data = json.loads(file.read())
+    print(data)
+
     return render_template('main.html', data=data)
 
 
