@@ -3,3 +3,4 @@
 .ipython
 *.swp
 venv
+.jupyter
