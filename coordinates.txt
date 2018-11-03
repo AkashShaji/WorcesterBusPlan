@@ -1,0 +1,35 @@
+WPI
+42.2746,-71.8063
+Umass Medical
+42.2772,-71.7611
+Worcester State
+42.2680,-71.8441
+Holy Cross
+42.2392,-71.8080
+Clark
+42.2523,-71.8247
+Assumption
+42.2915,-71.8296
+Quinsigamond
+42.3146,-71.7937
+Becker
+42.2670,-71.8119
+MCPHS
+42.3368,-71.1012
+Worcester Common
+42.2626,-71.8023
+Train Station
+42.2612,-71.7950
+Airport
+42.2680,-71.8735
+Movie Theatre
+42.3164,-71.8027
+General Foley Stadium  
+42.2630,-71.8236
+Ball park in Kelly Square
+42.257109,-71.801385
+Sundial Plaza
+42.2641,-71.7668
+Worcester Art Museum
+42.2731,-71.8020
+
