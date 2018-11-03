@@ -32,6 +32,21 @@
     </style>
   </head>
   <body>
+    <div id="floating-panel">
+      <b>College: </b>
+      <select id="choice">
+        <option>-select-</option>
+        <option value="wpi">WPI</option>
+        <option value="umass_medical">UMass Medical</option>
+        <option value="worcester_state">Worcester State</option>
+        <option value="holy_cross">Holy Cross</option>
+        <option value="clark">Clark</option>
+        <option value="assumption">Assumption</option>
+        <option value="quinsigamond">Quinsigamond</option>
+        <option value="becker">Becker</option>
+        <option value="mcphs">MCPHS</option>
+      </select>
+    </div>
     <div id="map"></div>
     <script>
       function initMap() {
@@ -58,22 +73,22 @@
         };
 
         var directionsService = new google.maps.DirectionsService;
+
+        var changeHandler = function() {
+          var college = document.getElementById('choice').value;
+          calculateRoutes(directionsService, colleges[college], locations);
+        };
+        document.getElementById('choice').addEventListener('change', changeHandler)
+      }
+
+      function calculateRoutes(directionsService, college, locations) {
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 7,
           center: {lat: 41.85, lng: -87.65}
         });
 
-        calculateRoutes(directionsService, map, colleges, locations);
-      }
-
-      function calculateRoutes(directionsService, map, colleges, locations) {
-        for (var college in colleges) {
-          console.log(college)
-          for (var location in locations) {
-            setTimeout(function() {
-              drawRoute(directionsService, map, colleges[college], locations[location]);
-            }, 200)
-          }
+        for (var location in locations) {
+          drawRoute(directionsService, map, college, locations[location]);
         }
       }
 
@@ -86,15 +101,16 @@
           travelMode: 'DRIVING'
         }, function(response, status) {
           if (status === 'OK') {
-            displayRoutes(directionsService, map, start['color'], response);
+            displayRoutes(map, start['color'], response);
           }
         });
 
-        function displayRoutes(directionsService, map, color, response) {
-          var directionsOptions = {
-            polylineOptions: {strokeColor:color}
-          }
-          var directionsDisplay = new google.maps.DirectionsRenderer(directionsOptions);
+        function displayRoutes(map, color, response) {
+          // var directionsOptions = {
+          //   polylineOptions: {strokeColor:color}
+          // }
+
+          var directionsDisplay = new google.maps.DirectionsRenderer();
           directionsDisplay.setMap(map);
           directionsDisplay.setDirections(response);
         }
