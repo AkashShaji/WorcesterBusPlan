@@ -6,16 +6,11 @@ data = {}
 
 @app.route('/', methods=["GET","POST"])
 def index():
-    if request.method == "POST":
-        global data
-        data = request.get_json()
-        return redirect(url_for('map', data=data))
-    else:
-        return "Index page"
-
-@app.route('/map', methods=["GET"])
-def map():
     global data
+
+    file = open('spantree.json')
+    data = json.loads(file)
+
     return render_template('main.html', data=data)
 
 
