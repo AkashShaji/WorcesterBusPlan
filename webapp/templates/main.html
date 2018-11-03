@@ -51,15 +51,15 @@
     <script>
       function initMap() {
         var colleges = {
-          wpi: {'lat':42.2746, 'lng':-71.8063, 'color':'red'},
-          umass_medical: {'lat':42.2772, 'lng':-71.7611, 'color':'blue'},
-          worcester_state: {'lat':42.2680, 'lng':-71.8441, 'color':'orange'},
-          holy_cross: {'lat':42.2392, 'lng':-71.8080, 'color':'green'},
-          clark: {'lat':42.2523, 'lng':-71.8247, 'color':'yellow'},
-          assumption: {'lat':42.2915, 'lng':-71.8296, 'color':'purple'},
-          quinsigamond: {'lat':42.3146, 'lng':-71.7937, 'color':'pink'},
-          becker: {'lat':42.2670, 'lng':-71.8119, 'color':'brown'},
-          mcphs: {'lat':42.2697, 'lng':-71.7996, 'color':'gray'}
+          wpi: {'lat':42.2746, 'lng':-71.8063},
+          umass_medical: {'lat':42.2772, 'lng':-71.7611},
+          worcester_state: {'lat':42.2680, 'lng':-71.8441},
+          holy_cross: {'lat':42.2392, 'lng':-71.8080},
+          clark: {'lat':42.2523, 'lng':-71.8247},
+          assumption: {'lat':42.2915, 'lng':-71.8296},
+          quinsigamond: {'lat':42.3146, 'lng':-71.7937},
+          becker: {'lat':42.2670, 'lng':-71.8119},
+          mcphs: {'lat':42.2697, 'lng':-71.7996}
         };
         var locations = {
           worcester_common: {'lat':42.2626, 'lng':-71.8023},
@@ -101,15 +101,11 @@
           travelMode: 'DRIVING'
         }, function(response, status) {
           if (status === 'OK') {
-            displayRoutes(map, start['color'], response);
+            displayRoutes(map, response);
           }
         });
 
-        function displayRoutes(map, color, response) {
-          // var directionsOptions = {
-          //   polylineOptions: {strokeColor:color}
-          // }
-
+        function displayRoutes(map, response) {
           var directionsDisplay = new google.maps.DirectionsRenderer();
           directionsDisplay.setMap(map);
           directionsDisplay.setDirections(response);
