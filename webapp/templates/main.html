@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Directions Service</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="floating-panel">
+      <b>College: </b>
+      <select id="choice">
+        <option>-select-</option>
+        {{ for edge in data }}
+        <option value="{{ edge }}">{{ edge }}</option>
+        {{ end for }}
+      </select>
+    </div>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var edges = {{ data }};
+        // var colleges = {
+        //   wpi: {'lat':42.2746, 'lng':-71.8063},
+        //   umass_medical: {'lat':42.2772, 'lng':-71.7611},
+        //   worcester_state: {'lat':42.2680, 'lng':-71.8441},
+        //   holy_cross: {'lat':42.2392, 'lng':-71.8080},
+        //   clark: {'lat':42.2523, 'lng':-71.8247},
+        //   assumption: {'lat':42.2915, 'lng':-71.8296},
+        //   quinsigamond: {'lat':42.3146, 'lng':-71.7937},
+        //   becker: {'lat':42.2670, 'lng':-71.8119},
+        //   mcphs: {'lat':42.2697, 'lng':-71.7996}
+        // };
+        // var locations = {
+        //   worcester_common: {'lat':42.2626, 'lng':-71.8023},
+        //   union_station: {'lat':42.2612, 'lng':-71.7950},
+        //   airport: {'lat':42.2680, 'lng':-71.8735},
+        //   movie_theatre: {'lat':42.3164, 'lng':-71.8027},
+        //   foley_stadium: {'lat':42.2630, 'lng':-71.8236},
+        //   kelly_square_ball_park: {'lat':42.2571, 'lng':-71.8013},
+        //   sundial_plaza: {'lat':42.2641, 'lng':-71.7668},
+        //   art_museum: {'lat':42.2731, 'lng':-71.8020}
+        // };
+
+        var directionsService = new google.maps.DirectionsService;
+
+        var changeHandler = function() {
+          var edge = document.getElementById('choice').value;
+          calculateRoutes(directionsService, edges[edge]);
+        };
+        document.getElementById('choice').addEventListener('change', changeHandler)
+      }
+
+      function calculateRoutes(directionsService, edge) {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 7,
+          center: {lat: 42.27, lng: -71.82}
+        });
+
+        drawRoute(directionsService, map, edge['origin'], edge['dest']);
+        // for (var location in locations) {
+        // }
+      }
+
+      function drawRoute(directionsService, map, start, end) {
+        var start_coord = new google.maps.LatLng(start['lat'], start['lng']);
+        var end_coord = new google.maps.LatLng(end['lat'], end['lng']);
+        directionsService.route({
+          origin: start_coord,
+          destination: end_coord,
+          travelMode: 'DRIVING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            displayRoutes(map, response);
+          }
+        });
+
+        function displayRoutes(map, response) {
+          var directionsDisplay = new google.maps.DirectionsRenderer();
+          directionsDisplay.setMap(map);
+          directionsDisplay.setDirections(response);
+        }
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDa6xSklsVIjYAuyt5WgDkJw4axrqZy3aQ&callback=initMap">
+    </script>
+  </body>
+</html>
