@@ -50,20 +50,21 @@
           zoom: 7,
           center: {lat: 42.27, lng: -71.82}
         });
+        var colors = ['blue', 'red', 'green', 'orange'];
+        var i = 0;
 
         var changeHandler = function() {
           var edges = document.getElementById('choice').value;
-          calculateRoutes(directionsService, map, data[edges]);
+          calculateRoutes(directionsService, colors[i], map, data[edges]);
+          console.log(data[edges]);
+          i++;
         };
         document.getElementById('choice').addEventListener('change', changeHandler)
       }
 
-      function calculateRoutes(directionsService, map, edge) {
-        var colors = ['blue', 'red', 'green', 'orange'];
-        var i = 0;
-        for (var edge in edges) {
-          drawRoute(directionsService, colors[i], map, edge['origin'], edge['dest']);
-          i++;
+      function calculateRoutes(directionsService, color, map, edge) {
+        for (var pair in edge) {
+          drawRoute(directionsService, color, map, edge[pair]['origin'], edge[pair]['dest']);
         }
       }
 
