@@ -75,7 +75,7 @@ The following is the tree that Prim's generates. One thing to note is that the
 headers didn't fit, so just imagine that the row headers were transposed onto
 the columns.
 
-[prims](img/prims.jpeg)
+![prims](img/prims.jpeg)
 
 
 ### k-Means Clustering
@@ -95,7 +95,7 @@ Station in every route.
 The following are the results of the clustering. The points correlate to their
 relative positions.
 
-[k-means clustering](img/k-means.png)
+![k-means clustering](img/k-means.png)
 
 
 ### Google Directions Services
@@ -108,11 +108,11 @@ and the paths that we map are the same.
 The following are the generated routes. This didn't take into account the
 clustering.
 
-[Non-k-means routes](img/routes-no-cluster.png)
+![Non-k-means routes](img/routes-no-cluster.png)
 
 The following are the generated routes with clustering:
 
-[routes](img/routes-clustered.jpeg)
+![routes](img/routes-clustered.jpeg)
 
 
 ## Next Steps
@@ -125,4 +125,4 @@ resources in the presentation.
 
 ## Presentation
 The slidedeck that we presented in the hackathon can be found at
-`![WooBus.pdf](WooBus.pdf)`
+[WooBus.pdf](WooBus.pdf)
