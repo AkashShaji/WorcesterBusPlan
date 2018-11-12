@@ -36,40 +36,39 @@
       <b>Path: </b>
       <select id="choice">
         <option>-select-</option>
-        {% for edge in data %}
-        <option value="{{ edge }}">{{ edge }}</option>
+        {% for edges in data %}
+        <option value="{{ edges }}">{{ edges }}</option>
         {% endfor %}
       </select>
     </div>
     <div id="map"></div>
     <script>
       function initMap() {
-        var edges = JSON.parse('{{ data | tojson | safe }}');
+        var data = JSON.parse('{{ data | tojson | safe }}');
         var directionsService = new google.maps.DirectionsService;
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 7,
           center: {lat: 42.27, lng: -71.82}
         });
+        var colors = ['blue', 'red', 'green', 'orange'];
+        var i = 0;
 
         var changeHandler = function() {
-          var edge = document.getElementById('choice').value;
-          calculateRoutes(directionsService, map, edges[edge]);
+          var edges = document.getElementById('choice').value;
+          calculateRoutes(directionsService, colors[i], map, data[edges]);
+          console.log(data[edges]);
+          i++;
         };
         document.getElementById('choice').addEventListener('change', changeHandler)
       }
 
-      function calculateRoutes(directionsService, map, edge) {
-        // var map = new google.maps.Map(document.getElementById('map'), {
-        //   zoom: 7,
-        //   center: {lat: 42.27, lng: -71.82}
-        // });
-
-        drawRoute(directionsService, map, edge['origin'], edge['dest']);
-        // for (var edge in edges) {
-        // }
+      function calculateRoutes(directionsService, color, map, edge) {
+        for (var pair in edge) {
+          drawRoute(directionsService, color, map, edge[pair]['origin'], edge[pair]['dest']);
+        }
       }
 
-      function drawRoute(directionsService, map, start, end) {
+      function drawRoute(directionsService, color, map, start, end) {
         var start_coord = new google.maps.LatLng(start['lat'], start['lng']);
         var end_coord = new google.maps.LatLng(end['lat'], end['lng']);
         directionsService.route({
@@ -78,13 +77,16 @@
           travelMode: 'DRIVING'
         }, function(response, status) {
           if (status === 'OK') {
-            displayRoutes(map, response);
+            displayRoutes(map, color, response);
           }
         });
 
-        function displayRoutes(map, response) {
+        function displayRoutes(map, color, response) {
           var directionsOptions = {
-            suppressMarkers: true
+            suppressMarkers: true,
+            polylineOptions: {
+              strokeColor: color
+            }
           };
 
           var directionsDisplay = new google.maps.DirectionsRenderer(directionsOptions);
