@@ -15,7 +15,7 @@ three problems:
    and timely transportation to travelers workplaces or campuses. 
 3. How can Worcester attract more students to the downtown area? 
 
-We decided that we wanted to tackle problems 1 & 2. We realized that the main
+We decided that we wanted to tackle problems 2 & 3. We realized that the main
 reason why we, as WPI students, don't go downtown is because we didn't have a
 cost-effective way to visit the city. Using Uber (which is really the only
 option), it costs $10 to commute both back and from downtown. That means a trip
